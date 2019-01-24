@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JSON Data Collection</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+  <body>
+        
+    <section>
+
+    </section>
+        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+  let section = document.querySelector('section');
+  let requestURL = 'https://randomuser.me/api/?results=10&nat=us,ca,gb,au';
+  let request = new XMLHttpRequest();
+  request.open('GET', requestURL);
+  request.responseType = 'json';
+  request.send();
+  
+  request.onload = function() {
+    const dataText = request.response;
+    createPerson(dataText);
+  }
+
+  function createPerson(jsonObj) {
+    let person = jsonObj.results;
+      for(let i = 0; i < person.length; i++) {
+      let myArticle = document.createElement('article');
+      let myAva = document.createElement('img');
+      let myPara = document.createElement('p');
+      let myPara0 = document.createElement('p');
+      let myPara1 = document.createElement('p');
+      let myPara2 = document.createElement('p');
+      let myPara3 = document.createElement('p');
+      let myPara4 = document.createElement('p');
+
+      myAva.src = person[i].picture.large;
+      myPara.textContent = 'Name: ' + person[i].name.first + ' ' + person[i].name.last;
+      myPara0.textContent = 'Email: ' + person[i].email;
+      myPara1.textContent = 'Location: ' + person[i].location.city + ', ' + person[i].location.state + ', ' + person[i].nat;
+      myPara2.textContent = 'Gender: ' + person[i].gender;
+      myPara3.textContent = 'Age: ' + person[i].dob.age;
+      myPara4.textContent = 'Date of Birth: ' + person[i].dob.date;
+
+      myArticle.appendChild(myAva);
+      myArticle.appendChild(myPara);
+      myArticle.appendChild(myPara0);
+      myArticle.appendChild(myPara1);
+      myArticle.appendChild(myPara2);
+      myArticle.appendChild(myPara3);
+      myArticle.appendChild(myPara4);  
+
+      section.appendChild(myArticle);
+      };
+  }
+  
+
+</script>
+</body>
+</html>
